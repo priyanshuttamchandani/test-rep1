@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="test-batch-jobFlow" doc:id="59b54ac9-aa2a-458d-8edc-3538b8db82b4" >
+		<scheduler doc:name="Scheduler" doc:id="6e49f28b-fc66-4f2d-8ed9-8834b5cf46e2" >
+			<scheduling-strategy >
+				<cron expression="0 15 10 ? * *" timeZone="IST" />
+			</scheduling-strategy>
+		</scheduler>
+		<logger level="INFO" doc:name="Logger" doc:id="32f263aa-ba53-4d98-b4ba-637b10c2d021" message='#["App Running &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"]'/>
+		<ee:transform doc:name="Transform Message" doc:id="e5f051f3-b8a8-4fe3-8e0f-601e5a52af3e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"App" : "Status Running"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
